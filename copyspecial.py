@@ -14,7 +14,7 @@ import os
 # from datetime import datetime
 # from os import listdir
 import sys
-# import shutil
+import shutil
 # import subprocess
 import argparse
 
@@ -34,8 +34,7 @@ def get_special_paths(dirname):
 
 def copy_to(path_list, dest_dir):
     """Given a path_list and dest_dir, copies files in path_list to dest_dir"""
-    # your code here
-    return
+    shutil.copyfile(path_list, dest_dir)
 
 
 def zip_to(path_list, dest_zip):
@@ -50,8 +49,9 @@ def main(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('--todir', help='dest dir for special files')
     parser.add_argument('--tozip', help='dest zipfile for special files')
+    parser.add_argument('--fromdir', help='dest dir special files come from')
     # TODO: add one more argument definition to parse the 'from_dir' argument
-    # ns = parser.parse_args(args)
+    ns = parser.parse_args(args)
 
     # TODO: you must write your own code to get the command line args.
     # Read the docs and examples for the argparse module about how to do this.
@@ -62,6 +62,11 @@ def main(args):
     # exit(1).
 
     # Your code here: Invoke (call) your functions
+    if ns:
+        copy_to(ns)
+    else:
+        parser.print_usage()
+        sys.exit(1)
 
 
 if __name__ == "__main__":
