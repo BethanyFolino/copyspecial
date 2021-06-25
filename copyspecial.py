@@ -21,14 +21,16 @@ import argparse
 
 def get_special_paths(dirname):
     """Given a dirname, returns a list of all its special files."""
-    string_pattern = re.compile(r"(\w+?\_\_\w+\_\_\.\w+)")
+    string_pattern = re.compile(
+        r"([\w+]?[\w+]?[\w+]?__\w+__[.\w+]?[\w+]?[\w+]?[\w+]?)")
     result = ""
 
     for file in os.listdir(dirname):
-        result += os.path.abspath(file)
+        result += f"{os.path.abspath(file)}"
 
     matches = string_pattern.findall(result)
-    final = [os.path.abspath(match) for match in matches]
+    final = [os.path.abspath(os.path.join(dirname, match)) for match in
+             matches]
     return final
 
 
@@ -49,7 +51,7 @@ def main(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('--todir', help='dest dir for special files')
     parser.add_argument('--tozip', help='dest zipfile for special files')
-    parser.add_argument('--fromdir', help='dest dir special files come from')
+    parser.add_argument('--fromdir', help='dest dir special files come')
     # TODO: add one more argument definition to parse the 'from_dir' argument
     ns = parser.parse_args(args)
 
