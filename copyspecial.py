@@ -80,6 +80,9 @@ def main(args):
 
     if zip_dir:
         zip_to(paths, zip_dir)
+    else:
+        for item in paths:
+            print(item)
 
 
 if __name__ == "__main__":
